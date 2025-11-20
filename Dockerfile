@@ -10,6 +10,4 @@ COPY requirements.txt .
 
 RUN pip install --no-cache-dir -r requirements.txt \
   
-VOLUME ["/var/run/docker.sock"]
-
 CMD ["python", "docker_auto_update.py"]
