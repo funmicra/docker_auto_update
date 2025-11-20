@@ -31,10 +31,12 @@ jobs:
           push: true
           tags: |
             funmicra/docker-update:latest
+            funmicra/docker-update:${{ github.sha }}
+            funmicra/docker-update:${{ github.ref_name }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
-          # optional: serialize uploads to reduce 400 errors
-
+          max-concurrent-uploads: 1  # serialize uploads to reduce 400 errors
+          retry: 3                   # retry on transient errors
 
       - name: Pull new image
         run: docker pull funmicra/docker-update:latest
