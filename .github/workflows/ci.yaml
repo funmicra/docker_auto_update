@@ -31,11 +31,8 @@ jobs:
           push: true
           tags: |
             funmicra/docker-update:latest
-            funmicra/docker-update:${{ github.sha }}
-            funmicra/docker-update:${{ github.ref_name }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
-          max-concurrent-uploads: 1  # serialize uploads to reduce 400 errors
           retry: 3                   # retry on transient errors
 
       - name: Pull new image
@@ -48,10 +45,4 @@ jobs:
 
       - name: Run updated container
         run: |
-          docker run -d \
-            --name docker-update \
-            --restart unless-stopped \
-            -v /var/run/docker.sock:/var/run/docker.sock \
-            -v logs:/app/logs \
-            --env-file .env \
-            funmicra/docker-update:latest
+          docker compose up -d
