@@ -110,11 +110,17 @@ def notify(container_name, event_type="info", image=None, extra=None):
 # =========================
 # Update container function
 # =========================
+last_check_time = {}
 def update_container(container):
+    global last_check_time
     name = container.name
-    if name in CFG["skip_containers"]:
-        logger.info(f"Skipping container {name}")
+
+    # Only check once per interval
+    now = time.time()
+    if name in last_check_time and now - last_check_time[name] < CFG["check_interval"]:
         return
+    
+    last_check_time[name] = now
 
     labels = container.attrs['Config'].get('Labels', {})
     stack_name = labels.get('com.docker.stack.namespace')

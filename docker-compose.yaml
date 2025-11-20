@@ -10,7 +10,12 @@ services:
       - CHECK_INTERVAL=${CHECK_INTERVAL}
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - logs:/app/logs        # <—— Persistent log mount
+      - logs:/app/logs
 
 volumes:
   logs:
+
+networks:
+  App-Network:
+    external: true
+    name: App-Network
