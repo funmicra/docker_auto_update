@@ -31,7 +31,6 @@ jobs:
           push: true
           tags: |
             funmicra/docker-update:latest
-          retry: 3                   # retry on transient errors
 
       - name: Pull new image
         run: docker pull funmicra/docker-update:latest
