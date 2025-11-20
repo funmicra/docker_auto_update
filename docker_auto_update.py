@@ -229,7 +229,7 @@ def main():
                 update_container(c)
 
             cleanup_unused_images()
-            logger.info(f"Sleeping {CFG['check_interval']} seconds…")
+            logger.info(f"💤 Sleeping {CFG['check_interval']} seconds…")
             time.sleep(CFG["check_interval"])
     except KeyboardInterrupt:
         logger.info("Exiting Docker auto-update script.")
