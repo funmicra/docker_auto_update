@@ -31,8 +31,6 @@ jobs:
           push: true
           tags: |
             funmicra/docker-update:latest
-            funmicra/docker-update:${{ github.sha }}
-            funmicra/docker-update:${{ github.ref_name }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
           # optional: serialize uploads to reduce 400 errors
