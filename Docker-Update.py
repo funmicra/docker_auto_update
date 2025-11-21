@@ -17,11 +17,14 @@ load_dotenv()
 # =========================
 def to_bool(value):
     return str(value).lower() in ("1", "true", "yes", "y", "on")
+
 CFG = {
     "check_interval": int(os.getenv("CHECK_INTERVAL") or 3600),
-    "skip_containers": [],
+    "skip_containers": [
+        c.strip() for c in os.getenv("SKIP_CONTAINERS", "").split(",") if c.strip()
+    ],
     "notifications": {
-        "enabled": to_bool(os.getenv("TELEGRAM" or "false")),
+        "enabled": to_bool(os.getenv("TELEGRAM", "false")),
         "type": "telegram",
         "telegram_bot_token": os.getenv("TELEGRAM_BOT_TOKEN"),
         "telegram_chat_id": os.getenv("TELEGRAM_CHAT_ID")
@@ -33,10 +36,10 @@ CFG = {
     }
 }
 
+
 # =========================
 # Logging setup
 # =========================
-
 # Smart logging path selection
 if os.path.exists("/app"):
     LOG_DIR = "/app/logs"
@@ -122,6 +125,9 @@ def update_container(container):
     if name in last_check_time and now - last_check_time[name] < CFG["check_interval"]:
         return
     last_check_time[name] = now
+    if name in CFG["skip_containers"]:
+        logger.info(f"Skipping container {name} (in skip list)")
+        return
 
     labels = container.attrs['Config'].get('Labels', {})
     stack_name = labels.get('com.docker.stack.namespace')
