@@ -63,7 +63,7 @@ pip install -r requirements.txt
 ```
 Run the script:
 ```bash
-python3 docker_auto_update.py
+python3 Docker-Update.py
 ```
 ---
 ## GitHub Actions CI/CD
@@ -110,8 +110,3 @@ docker run -d \
         └── ci.yml
 ```
 ---
-## Roadmap
-
- - Add dry-run mode
- - Add per-container exclusion lists
- - Add metrics exporter for Prometheus
