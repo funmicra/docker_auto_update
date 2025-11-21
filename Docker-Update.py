@@ -36,8 +36,16 @@ CFG = {
 # =========================
 # Logging setup
 # =========================
-LOG_PATH = "/app/logs/docker-auto-update.log"
-os.makedirs("/app/logs", exist_ok=True)
+
+# Smart logging path selection
+if os.path.exists("/app"):
+    LOG_DIR = "/app/logs"
+else:
+    LOG_DIR = os.path.join(os.getcwd(), "logs")
+
+os.makedirs(LOG_DIR, exist_ok=True)
+
+LOG_PATH = os.path.join(LOG_DIR, "Docker-Update.log")
 
 logger = logging.getLogger("AutoUpdate")
 logger.setLevel(logging.INFO)
@@ -58,6 +66,7 @@ file_handler.setFormatter(fmt)
 
 logger.addHandler(console)
 logger.addHandler(file_handler)
+
 
 # =========================
 # Docker client
