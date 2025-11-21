@@ -51,7 +51,8 @@ docker run -d \
   -e TELEGRAM=true \
   -e TELEGRAM_BOT_TOKEN=your_bot_token \
   -e TELEGRAM_CHAT_ID=your_chat_id \
-  -e CHECK_INTERVAL=86400   #every one day
+  -e CHECK_INTERVAL=86400 \
+  -v /var/run/docker.sock:/var/run/docker.sock \
   --name Docker-Update \
   funmicra/docker-update
 ```
