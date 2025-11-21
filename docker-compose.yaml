@@ -5,15 +5,16 @@ services:
     restart: unless-stopped
     environment:
       - TZ=${TZ}
+      - TELEGRAM=yes
       - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN}
       - TELEGRAM_CHAT_ID=${TELEGRAM_CHAT_ID}
       - CHECK_INTERVAL=${CHECK_INTERVAL}
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - /var/log/docker-updater:/app/logs
+      - logs:/app/logs
 
-# volumes:
-#   logs:
+volumes:
+  logs:
 
 networks:
   default:
