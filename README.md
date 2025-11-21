@@ -35,6 +35,7 @@
 | `TELEGRAM_BOT_TOKEN` | Telegram bot token                       | Yes      | —                           |
 | `TELEGRAM_CHAT_ID`   | Telegram chat ID                         | Yes      | —                           |
 | `CHECK_INTERVAL`     | Interval in seconds between image checks | No       | `3600`                      |
+| `SKIP_CONTAINERS`    | Choose containers not to updated         | No       | —                           |
 | `LOG_PATH`           | Path to rotating log file                | No       | `/var/log/Auto-Update.log`  |
 ```
 ---
@@ -62,7 +63,7 @@ pip install -r requirements.txt
 ```
 Run the script:
 ```bash
-python3 docker_auto_update.py
+python3 Docker-Update.py
 ```
 ---
 ## GitHub Actions CI/CD
@@ -109,8 +110,3 @@ docker run -d \
         └── ci.yml
 ```
 ---
-## Roadmap
-
- - Add dry-run mode
- - Add per-container exclusion lists
- - Add metrics exporter for Prometheus
